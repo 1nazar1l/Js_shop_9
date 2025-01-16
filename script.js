@@ -12,14 +12,13 @@ function createProduct(card){
     localStorage.setItem('counter', counter)
     let cardName = `card${counter}`
     card = JSON.stringify(card)
-    localStorage.setItem(`${cardName}`, card)
+    localStorage.setItem(cardName, card)
 }
 
 function appendProducts(){
     let keys = Object.keys(localStorage).reverse().sort()
     for (let key of keys){
         if (key != 'counter'){
-            console.log(key)
             let card = JSON.parse(localStorage.getItem(key))
             let products = document.querySelector('.products')
 

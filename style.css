@@ -94,3 +94,148 @@ html {
     height: 20px;
     display: block;
 }
+
+.products__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.products__add img {
+    width: 40%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.products__add img.hide {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.text-field {
+    width: 100%;
+}
+
+.form__fields {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    width: 85%;
+}
+
+.text-field:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.button-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form__fields.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+label {
+    font-size: 16px;
+    color: grey;
+}
+
+.card__delete {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.3s ease;
+    visibility: hidden;
+}
+
+.products__card:hover .card__delete {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal {
+    position: absolute;
+    width: 25%;
+    height: 100px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background-color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    top: -100%;
+}
+
+.modal__title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.modal__buttons {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.modal__button {
+    background-color: black;
+    color: whitesmoke;
+    border: 0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.modal__button:first-child {
+    margin-right: 10px;
+}
+
+.modal.active {
+    animation: shaky 0.5s ease-in-out forwards;
+}
+
+.modal.closed {
+    animation: shaky-close 0.5s ease-in-out forwards;
+}
+
+@keyframes shaky {
+    from {
+        top: 0%;
+    }
+
+    50% {
+        top: 6%;
+    }
+
+    to {
+        top: 3%;
+    }
+}
+
+@keyframes shaky-close {
+    from {
+        top: 3%;
+    }
+    
+    50% {
+        top: 7%;
+    }
+
+    to {
+        top: -100%;
+    }
+}

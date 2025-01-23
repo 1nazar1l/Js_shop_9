@@ -11,6 +11,7 @@ function createProduct(card){
     counter += 1
     localStorage.setItem('counter', counter)
     let cardName = `card${counter}`
+    card['count'] = counter
     card = JSON.stringify(card)
     localStorage.setItem(cardName, card)
 }
@@ -25,6 +26,7 @@ function appendProducts(){
             let products__card = document.createElement("div")
             products__card.className = "products__card"
             products__card.innerHTML = `
+            <img src="./imgs/delete.svg" alt="" data-count="${card.count}" class="card__delete">
             <div class="card__image-block">
                 <img src="${card.image}" alt="" class="card__image">
             </div>
@@ -37,8 +39,7 @@ function appendProducts(){
                 <div class="card__cost">${card.cost}</div>
             </div>
             `;
-            
-            products.append(products__card)
+            products.prepend(products__card)
         }
     }
 }
@@ -59,8 +60,65 @@ let product2 = {
     cost: "250"
 }
 
-// createProduct(product1)
+let add_card = document.querySelector('.products__add')
+add_card.addEventListener('click', function () {
+    let img = document.querySelector('.products__add img')
+    img.classList.add('hide')
+
+    let add_form = document.querySelector('.form__fields')
+    add_form.classList.add('show')
+})
+
+let formButton = document.querySelector('.form__button')
+formButton.addEventListener('click', function (event) {
+    event.preventDefault()
+    let form = document.querySelector('.add__form')
+    let imagePath = document.querySelector('#image-path').value
+    let rating = document.querySelector('#rating').value
+    let value = document.querySelector('#value').value
+    let name = document.querySelector('#name').value
+    let cost = document.querySelector('#cost').value
+    if (!form.checkValidity()){ 
+        alert('Заполните все поля')
+    }
+    else {
+        let card = {
+            image: imagePath, 
+            rating: rating, 
+            value: value, 
+            name: name, 
+            cost: cost
+        }
+        createProduct(card)
+        window.location.reload(true)
+    }
+})
 appendProducts()
 
 
+let deleteButtons = document.getElementsByClassName("card__delete") 
+let modal = document.querySelector(".modal")
+let DeletedItemCount
+for (let deleteButton of deleteButtons){
+    deleteButton.addEventListener('click', function () {
+        modal.classList.add("active")
+        modal.classList.remove("closed")
+        DeletedItemCount = deleteButton.getAttribute("data-count")
+    })
+}
 
+let button1 = document.querySelector("#yes")
+let button2 = document.querySelector("#no")
+
+button1.addEventListener('click', function () {
+    modal.classList.add("closed")
+    modal.classList.remove("active")
+    console.log(DeletedItemCount)
+    localStorage.removeItem(`card${DeletedItemCount}`)
+    setTimeout(function () {window.location.reload(true)}, 600)
+})
+
+button2.addEventListener('click', function () {
+    modal.classList.add("closed")
+    modal.classList.remove("active")
+})
